@@ -57,6 +57,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: install terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: terraform init
+        run: terraform init -backend=false
+
       - name: tflint
         uses: reviewdog/action-tflint@v1.13.0
         with:
@@ -69,6 +75,12 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: install terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: terraform init
+        run: terraform init -backend=false
+        
       - name: tfsec
         uses: reviewdog/action-tfsec@v1.12.1
         with:
