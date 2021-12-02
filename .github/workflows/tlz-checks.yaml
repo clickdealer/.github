@@ -39,7 +39,7 @@ jobs:
       - name: terraform docs
         uses: terraform-docs/gh-actions@v0.11.0
         with:
-          fail-on-diff: true
+          fail-on-diff: 'true'
           output-file: readme.md
 
   tffmt:
@@ -61,7 +61,7 @@ jobs:
         uses: reviewdog/action-tflint@v1.13.0
         with:
           github_token: ${{ secrets.github_token }}
-          fail_on_error: true
+          fail_on_error: 'true'
 
   tfsec:
     runs-on: ubuntu-latest
@@ -73,7 +73,7 @@ jobs:
         uses: reviewdog/action-tfsec@v1.12.1
         with:
           github_token: ${{ secrets.github_token }}
-          fail_on_error: true
+          fail_on_error: 'true'
 
   tfvalidate:
     runs-on: ubuntu-latest
