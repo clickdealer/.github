@@ -1,6 +1,3 @@
-# This workflow has been deprecated in favour of sonar-scanner.yml
-# This needs to be left intact to keep existing repositories scanning
-
 name: Sonar Scanner
 
 on:
