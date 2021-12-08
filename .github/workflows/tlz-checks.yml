@@ -24,11 +24,17 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
+      - name: terrascan config file exists
+        uses: andstor/file-existence-action@v1
+        id: config_file
+        with:
+          files: .terrascan.yaml
+
       - name: terrascan
         uses: accurics/terrascan-action@v1.4.1
         with:
+          config_path: ${{ steps.config_file.outputs.files_exists == 'true' && '.terrascan.yaml' || null }}
           iac_type: terraform
-          iac_version: v14
 
   tfdocs:
     runs-on: ubuntu-latest
