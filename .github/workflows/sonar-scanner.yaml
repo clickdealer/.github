@@ -1,7 +1,7 @@
-# This workflow has been deprecated in favour of sonar-scanner.yml
+# This workflow has been deprecated in favour of clickdealer/github-actions
 # This needs to be left intact to keep existing repositories scanning
 
-name: Sonar Scanner
+name: sonar-scanner
 
 on:
   workflow_call:
@@ -11,33 +11,7 @@ on:
       url:
         required: true
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SONARCLOUD_URL: ${{ secrets.url }}
-  SONAR_TOKEN: ${{ secrets.token }}
-
 jobs:
-  scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - if: ${{ github.event_name == 'push' }}
-        uses: sonarsource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.projectKey=clickdealer_${{ github.event.repository.name }}
-            -Dsonar.branch.name=${{ github.ref_name }}
-            -Dsonar.ws.timeout=120
-
-      - if: ${{ github.event_name == 'pull_request' }}
-        uses: sonarsource/sonarcloud-github-action@master
-        with:
-          args: >
-            -Dsonar.projectKey=clickdealer_${{ github.event.repository.name }}
-            -Dsonar.pullrequest.key=${{ github.event.number }}
-            -Dsonar.pullrequest.branch=${{ github.head_ref }}
-            -Dsonar.pullrequest.base=${{ github.base_ref }}
-            -Dsonar.ws.timeout=120
+  sonar-scanner:
+    uses: clickdealer/github-actions/.github/workflows/sonar-scanner.yaml@v1
+    secrets: inherit
